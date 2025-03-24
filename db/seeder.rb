@@ -18,7 +18,7 @@ class Seeder
   def self.create_tables
     db.execute('CREATE TABLE med (drugid INTEGER PRIMARY KEY AUTOINCREMENT, illnessid1 I, name TEXT NOT NULL, description TEXT)')
     db.execute('CREATE TABLE ill (illnessid INTEGER PRIMARY KEY AUTOINCREMENT, drugid1 I, name TEXT NOT NULL, description TEXT)')
-    db.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT, access TEXT)')
+    db.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, is_admin BOOLEAN)')
   end
 
   def self.populate_tables
@@ -26,8 +26,8 @@ class Seeder
     password_hashed_user = BCrypt::Password.create("user")
     db.execute('INSERT INTO med (name, description, illnessid1) VALUES ("drug 1", "first drug", "illness1")')
     db.execute('INSERT INTO ill (name, description, drugid1) VALUES ("illness 1", "first illness", "drug1")')
-    db.execute('INSERT INTO users (username, password, access) VALUES (?, ?, ?)',["admin", password_hashed_admin, "admin"])
-    db.execute('INSERT INTO users (username, password, access) VALUES (?, ?, ?)',["user", password_hashed_user, "user"])
+    db.execute('INSERT INTO users (username, password, is_admin) VALUES (?, ?, ?)',["admin", password_hashed_admin, true])
+    db.execute('INSERT INTO users (username, password, is_admin) VALUES (?, ?, ?)',["user", password_hashed_user, false])
   end
 
   private
