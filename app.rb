@@ -99,7 +99,7 @@ class App < Sinatra::Base
   
     get '/admin/new_ill' do
         admin_protected()
-
+        
         erb(:"/admin/new_ill")
     end
 

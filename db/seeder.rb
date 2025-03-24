@@ -13,12 +13,15 @@ class Seeder
     db.execute('DROP TABLE IF EXISTS med')
     db.execute('DROP TABLE IF EXISTS ill')
     db.execute('DROP TABLE IF EXISTS users')
+    db.execute('DROP TABLE IF EXISTS user_med')
+
   end
 
   def self.create_tables
     db.execute('CREATE TABLE med (drugid INTEGER PRIMARY KEY AUTOINCREMENT, illnessid1 I, name TEXT NOT NULL, description TEXT)')
     db.execute('CREATE TABLE ill (illnessid INTEGER PRIMARY KEY AUTOINCREMENT, drugid1 I, name TEXT NOT NULL, description TEXT)')
     db.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, is_admin BOOLEAN)')
+    db.execute('')
   end
 
   def self.populate_tables
