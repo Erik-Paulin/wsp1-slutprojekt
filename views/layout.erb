@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>&#127820; To Do</title>
-    <link rel="stylesheet" type="text/css" href="/style.css?<%=Time.now.to_i%>"> 
+    <link rel="stylesheet" type="text/css" href="/style.css?<%=Time.now.to_i%>">
 </head>
 <body>
     <header>
-       
+
     </header>
     <hr>
     <nav>
-        <a href="/login"> Log in </a>
-        <a href="/logout"> Log out </a> 
+        <a href="/login">Log in</a>
+        <a href="/logout">Log out</a>
+        <% if session[:user_id] %>
+          <a href="/user/prescript">Prescription</a>
+          <% if session[:is_admin] %>
+            <a href="/admin/new_ill">Ny sjukdom</a>
+            <a href="/admin/:id/edit_ill">Updatera sjukdom</a>
+            <a href="/admin/new_med">Ny sjukdom</a>
+            <a href="/admin/:id/edit_med">Updatera sjukdom</a>
+          <% end %>
+        <% end %>
+
     </nav>
     <hr>
     <%= yield %>

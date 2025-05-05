@@ -10,3 +10,6 @@ db/*.sqlite
 
 # Windows
 Thumbs.db
+
+*.env
+!.example.env
