@@ -1,1 +1,35 @@
-gusiagfasdhgjflsdhalkfhelkwdjhfk
+<ul>
+  <% @meds.each do |med| %>
+    <li>
+      <a href="/meds/show_med/<%= med['medid']%>"><%= med['name'] %></a>
+      <p><%= med ['description'] %></p>
+      <% if session[:is_admin] %>
+        <form action="/admin/meds/remove_med/<%=med["medid"]%>/delete" method="post">
+          <input type="submit" value="Ta bort">
+        </form>
+      <% end %>
+      <% if session[:is_admin] %>
+        <a href="/admin/meds/<%= med['medid']%>/edit_med">Ändra</a>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+
+
+<ul>
+  <% @ills.each do |ill| %>
+    <li>
+      <a href="/ills/show_ill/<%= ill['illid']%>"><%= ill['name'] %></a>
+      <p><%= ill ['description'] %></p>
+      <% if session[:is_admin] %>
+        <form action="/admin/ills/remove_ill/<%=ill["illid"]%>/delete" method="post">
+          <input type="submit" value="Ta bort">
+        </form>
+      <% end %>
+      <% if session[:is_admin] %>
+        <a href="/admin/ills/<%= ill['illid']%>/edit_ill">Ändra</a>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

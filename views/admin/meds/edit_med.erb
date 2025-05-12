@@ -1,0 +1,16 @@
+<form method="post" action="/admin/meds/<%= @med[:medid] %>/edit_med/update">
+  <label for="med_name">Medicine Name:</label><br>
+  <input type="text" id="med_name" name="med_name" value="<%= @med['name'] %>"><br><br>
+
+  <label for="med_desc">Description:</label><br>
+  <textarea id="med_desc" name="med_desc"><%= @med['description'] %></textarea><br><br>
+
+  <label>Cures:</label><br>
+  <% @ills.each do |ill| %>
+    <% is_checked = @med_ills.include?(ill[:illid]) %>
+    <input type="checkbox" id="ill_<%= ill[:illid] %>" name="ill_ids[]" value="<%= ill[:illid] %>" <%= is_checked ? 'checked' : '' %>>
+    <label for="ill_<%= ill[:illid] %>"><%= ill['name'] %></label><br>
+  <% end %>
+
+  <input type="submit" value="Update Medicine">
+</form>

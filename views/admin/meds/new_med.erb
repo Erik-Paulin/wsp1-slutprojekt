@@ -1,0 +1,15 @@
+<form method="post" action="/med">
+  <label for="med_name">Medicine Name:</label><br>
+  <input type="text" id="med_name" name="med_name"><br><br>
+
+  <label for="med_desc">Description:</label><br>
+  <textarea id="med_desc" name="med_desc"></textarea><br><br>
+
+  <label>Cures:</label><br>
+  <% @ills.each do |ill| %>
+    <input type="checkbox" id="ill_<%= ill[:illid] %>" name="ill_ids[]" value="<%= ill[:illid] %>">
+    <label for="ill_<%= ill[:illid] %>"><%= ill['name'] %></label><br>
+  <% end %>
+
+  <input type="submit" value="Create Medicine">
+</form>

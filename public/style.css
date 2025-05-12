@@ -5,3 +5,14 @@ body {
   font-size: x-large;
   margin: 1em;
 }
+nav {
+  margin-bottom: 10px; /* Add spacing below the nav */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc; /* Add a visual separator */
+}
+
+footer {
+  margin-top: 10px; /* Add spacing above the footer */
+  padding-top: 10px;
+  border-top: 1px solid #ccc; /* Add a visual separator */
+}

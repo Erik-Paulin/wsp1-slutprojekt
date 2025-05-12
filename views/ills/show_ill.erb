@@ -1,0 +1,13 @@
+<h1><%= @ill['name'] %></h1>
+<p><%= @ill['description'] %></p>
+
+<h2>Medications:</h2>
+<ul>
+  <% if @meds && !@meds.empty? %>
+    <% @meds.each do |med| %>
+      <li><%= med['name'] %> - <%= med['description'] %></li>
+    <% end %>
+  <% else %>
+    <li>No medications listed.</li>
+  <% end %>
+</ul>
