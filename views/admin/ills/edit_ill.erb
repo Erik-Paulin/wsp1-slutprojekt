@@ -1,4 +1,4 @@
-<form method="post" action="/admin/ills/<%= @ill[:illid] %>/edit_ill/update">
+<form method="post" action="/admin/ills/<%= @ill["illid"] %>/edit_ill/update">
   <label for="ill_name">Illness Name:</label><br>
   <input type="text" id="ill_name" name="ill_name" value="<%= @ill['name'] %>"><br><br>
 
@@ -7,9 +7,9 @@
 
   <label>Treatments:</label><br>
   <% @meds.each do |med| %>
-    <% is_checked = @ill_meds.include?(med[:medid]) %>
-    <input type="checkbox" id="med_<%= med[:medid] %>" name="med_ids[]" value="<%= med[:medid] %>" <%= is_checked ? 'checked' : '' %>>
-    <label for="med_<%= med[:medid] %>"><%= med['name'] %></label><br>
+    <% is_checked = @med_ills.find { |med_ill| med_ill['medid'] == ill['medid'] } %>
+    <input type="checkbox" id="med_<%= med["medid"] %>" name="med_ids[]" value="<%= med['medid'] %>" <%= is_checked ? 'checked' : '' %>>
+    <label for="med_<%= med["medid"] %>"><%= med['name'] %></label><br>
   <% end %>
 
   <input type="submit" value="Update Illness">

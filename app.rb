@@ -140,17 +140,14 @@ class App < Sinatra::Base
       @meds = db.execute('SELECT * FROM med')
       @ills = db.execute('SELECT * FROM ill')
       @med_ills = db.execute('SELECT ill.* FROM ill INNER JOIN med_ill ON ill.illid = med_ill.ill_id WHERE med_ill.med_id = ?', [id.to_i])
-      p @med_ills
       erb(:"/admin/meds/edit_med")
     end
 
     post '/admin/meds/:id/edit_med/update' do |id|
-      # admin_protected()
-      p params
+      admin_protected()
       name = params[:med_name]
       desc = params[:med_desc]
       ill_ids = params[:ill_ids] || []
-      p ill_ids
 
       db.execute("UPDATE med SET name=?, description=? WHERE medid=?", [name, desc, id])
 

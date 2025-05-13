@@ -7,8 +7,8 @@
 
   <label>Treatments:</label><br>
   <% @meds.each do |med| %>
-    <input type="checkbox" id="med_<%= med[:medid] %>" name="med_ids[]" value="<%= med[:medid] %>">
-    <label for="med_<%= med[:medid] %>"><%= med['name'] %></label><br>
+    <input type="checkbox" id="med_<%= med["medid"] %>" name="med_ids[]" value="<%= med['medid'] %>">
+    <label for="med_<%= med["medid"] %>"><%= med['name'] %></label><br>
   <% end %>
 
   <input type="submit" value="Create Illness">
