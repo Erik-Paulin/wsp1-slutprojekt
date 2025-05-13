@@ -26,15 +26,20 @@ class App < Sinatra::Base
       return @db
     end
 
+    configure do
+      enable :sessions
+      set :session_secret, SecureRandom.hex(64)
+    end
+
+    get '/' do
+      @meds = db.execute('SELECT * FROM med')
+      @ills = db.execute('SELECT * FROM ill')
+      redirect('/index')
+    end
     get '/index' do
       @meds = db.execute('SELECT * FROM med')
       @ills = db.execute('SELECT * FROM ill')
       erb(:"index")
-    end
-
-    configure do
-      enable :sessions
-      set :session_secret, SecureRandom.hex(64)
     end
 
     get '/logerror' do
@@ -132,15 +137,20 @@ class App < Sinatra::Base
 
       @id = params[:id]
       @med = db.execute('SELECT * FROM med WHERE medid=?', [id.to_i]).first
+      @meds = db.execute('SELECT * FROM med')
       @ills = db.execute('SELECT * FROM ill')
       @med_ills = db.execute('SELECT ill.* FROM ill INNER JOIN med_ill ON ill.illid = med_ill.ill_id WHERE med_ill.med_id = ?', [id.to_i])
+      p @med_ills
       erb(:"/admin/meds/edit_med")
     end
+
     post '/admin/meds/:id/edit_med/update' do |id|
-      admin_protected()
+      # admin_protected()
+      p params
       name = params[:med_name]
       desc = params[:med_desc]
       ill_ids = params[:ill_ids] || []
+      p ill_ids
 
       db.execute("UPDATE med SET name=?, description=? WHERE medid=?", [name, desc, id])
 
@@ -152,7 +162,7 @@ class App < Sinatra::Base
       redirect('/index')
     end
 
-
+    # Remove medicine
     post '/admin/meds/remove_med/:id/delete' do | id |
       admin_protected()
       db.execute('DELETE FROM med WHERE medid=?', params['id'])
@@ -192,7 +202,12 @@ class App < Sinatra::Base
       admin_protected()
 
       @id = params[:id]
-      @ill = db.execute('SELECT * FROM ill WHERE illid=?', id.to_i).first
+      @ill = db.execute('SELECT * FROM ill WHERE illid=?', [id.to_i]).first
+      p @ill
+      unless @ill
+        halt 404, "Illness not found"
+      end
+      @ills = db.execute('SELECT * FROM ill')
       @meds = db.execute('SELECT * FROM med')
 
       @ill_meds = db.execute('SELECT med_id FROM med_ill WHERE ill_id = ?', [id.to_i]).map { |row| row[:med_id] }
@@ -200,6 +215,7 @@ class App < Sinatra::Base
       erb(:"/admin/ills/edit_ill")
     end
     post '/admin/ills/:id/edit_ill/update' do |id|
+      p @ill
       admin_protected()
       name = params[:ill_name]
       desc = params[:ill_desc]

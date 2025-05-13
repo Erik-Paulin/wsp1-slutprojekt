@@ -7,8 +7,8 @@
 
   <label>Cures:</label><br>
   <% @ills.each do |ill| %>
-    <input type="checkbox" id="ill_<%= ill[:illid] %>" name="ill_ids[]" value="<%= ill[:illid] %>">
-    <label for="ill_<%= ill[:illid] %>"><%= ill['name'] %></label><br>
+    <input type="checkbox" id="ill_<%= ill["illid"] %>" name="ill_ids[]" value="<%= ill['illid'] %>">
+    <label for="ill_<%= ill["illid"] %>"><%= ill['name'] %></label><br>
   <% end %>
 
   <input type="submit" value="Create Medicine">

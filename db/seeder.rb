@@ -21,7 +21,7 @@ class Seeder
     db.execute('CREATE TABLE med (medid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, description TEXT)')
     db.execute('CREATE TABLE ill (illid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, description TEXT)')
     db.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, is_admin INTEGER)')
-    db.execute('CREATE TABLE med_ill (med_id INTEGER, ill_id INTEGER, FOREIGN KEY (med_id) REFERENCES med(medid), FOREIGN KEY (ill_id) REFERENCES ill(illid), PRIMARY KEY (med_id, ill_id))')
+    db.execute('CREATE TABLE med_ill (med_id INTEGER, ill_id INTEGER, FOREIGN KEY (med_id) REFERENCES med(medid) ON DELETE CASCADE, FOREIGN KEY (ill_id) REFERENCES ill(illid) ON DELETE CASCADE, PRIMARY KEY (med_id, ill_id))')
   end
 
   def self.populate_tables
@@ -49,6 +49,8 @@ class Seeder
     @db.results_as_hash = true
     @db
   end
+
+  p "doit"
 end
 
 Seeder.seed!
