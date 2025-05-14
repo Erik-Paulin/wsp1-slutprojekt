@@ -137,13 +137,19 @@ class App < Sinatra::Base
 
       @id = params[:id]
       @med = db.execute('SELECT * FROM med WHERE medid=?', [id.to_i]).first
-      @meds = db.execute('SELECT * FROM med')
+      unless @med
+        halt 404, "Medicine not found"
+      end
       @ills = db.execute('SELECT * FROM ill')
+      @meds = db.execute('SELECT * FROM med')
+
       @med_ills = db.execute('SELECT ill.* FROM ill INNER JOIN med_ill ON ill.illid = med_ill.ill_id WHERE med_ill.med_id = ?', [id.to_i])
+      
       erb(:"/admin/meds/edit_med")
     end
 
     post '/admin/meds/:id/edit_med/update' do |id|
+      p @med
       admin_protected()
       name = params[:med_name]
       desc = params[:med_desc]
@@ -200,17 +206,17 @@ class App < Sinatra::Base
 
       @id = params[:id]
       @ill = db.execute('SELECT * FROM ill WHERE illid=?', [id.to_i]).first
-      p @ill
       unless @ill
         halt 404, "Illness not found"
       end
       @ills = db.execute('SELECT * FROM ill')
       @meds = db.execute('SELECT * FROM med')
 
-      @ill_meds = db.execute('SELECT med_id FROM med_ill WHERE ill_id = ?', [id.to_i]).map { |row| row[:med_id] }
+      @med_ills = db.execute('SELECT med.* FROM med INNER JOIN med_ill ON med.medid = med_ill.med_id WHERE med_ill.ill_id = ?', [id.to_i])
 
       erb(:"/admin/ills/edit_ill")
     end
+
     post '/admin/ills/:id/edit_ill/update' do |id|
       p @ill
       admin_protected()

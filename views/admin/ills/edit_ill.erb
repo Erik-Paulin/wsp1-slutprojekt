@@ -7,7 +7,7 @@
 
   <label>Treatments:</label><br>
   <% @meds.each do |med| %>
-    <% is_checked = @med_ills.find { |med_ill| med_ill['medid'] == ill['medid'] } %>
+    <% is_checked = @med_ills.find { |med_ill| med_ill['medid'] == med['medid'] } %>
     <input type="checkbox" id="med_<%= med["medid"] %>" name="med_ids[]" value="<%= med['medid'] %>" <%= is_checked ? 'checked' : '' %>>
     <label for="med_<%= med["medid"] %>"><%= med['name'] %></label><br>
   <% end %>
