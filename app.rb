@@ -1,3 +1,4 @@
+require 'sinatra'
 require 'bcrypt'
 require 'dotenv'
 

@@ -17,6 +17,7 @@
   "homepage": "https://github.com/Erik-Paulin/wsp1-slutprojekt#readme",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.17"
+    "@types/node": "^22.15.17",
+    "playwright": "^1.52.0"
   }
 }
